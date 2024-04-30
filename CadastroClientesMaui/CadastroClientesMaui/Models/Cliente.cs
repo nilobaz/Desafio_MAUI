@@ -8,14 +8,20 @@ public class Cliente
     public int Age { get; set; }
     public string Address { get; set; }
 
-    public string FullName => $"{Name} {LastName}";
+    public string FullName { get; set; }
 
     public Cliente(string name, string lastName, int age, string address)
     {
-        Id = new Guid();
+        Id = Guid.NewGuid();
         Name = name;
         LastName = lastName;
         Age = age;
         Address = address;
+        FullName = $"{Name} {LastName}";
+    }
+
+    public Cliente()
+    {
+        Id = Guid.NewGuid();
     }
 }
