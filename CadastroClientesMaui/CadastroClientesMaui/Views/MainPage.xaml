@@ -1,0 +1,87 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CadastroClientesMaui.Views.MainPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*" />
+            <ColumnDefinition Width="50*" />
+        </Grid.ColumnDefinitions>
+
+        <CollectionView 
+            x:Name="collecview" 
+            ItemsSource="{Binding Clients}" 
+            SelectionMode="None">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout Spacing="15">
+                        <Frame 
+                            CornerRadius="30" 
+                            BackgroundColor="CadetBlue" 
+                            Margin="10">
+                            <Grid Padding="15">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Label 
+                                    Grid.Row="0" 
+                                    Text="{Binding FullName, StringFormat='Nome: {0}'}" 
+                                    Style="{StaticResource LabelClientList}" />
+                                <Label 
+                                    Grid.Row="1" 
+                                    Text="{Binding Age, StringFormat='Idade: {0}'}" 
+                                    Style="{StaticResource LabelClientList}" />
+                                <Label 
+                                    Grid.Row="2" 
+                                    Text="{Binding Address, StringFormat='Endereço: {0}'}" 
+                                    Style="{StaticResource LabelClientList}"/>
+                            </Grid>
+                            <FlyoutBase.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Editar" />
+                                    <MenuFlyoutItem Text="Remover" />
+                                </MenuFlyout>
+                            </FlyoutBase.ContextFlyout>
+                        </Frame>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <ScrollView 
+            Grid.Column="1">
+            <VerticalStackLayout 
+                   Padding="30,0"
+                   Spacing="20">
+                <Image
+                     Source="btg_pactual.png"
+                     BackgroundColor="White"
+                     MaximumWidthRequest="350"
+                     Aspect="AspectFill" />
+
+                <Label
+                     Text="Cadastro de Clientes"
+                     Style="{StaticResource Headline}" />
+
+                <Label
+                     Text="Para editar ou remover, clique com o botão direito no item da lista ao lado."
+                     Style="{StaticResource SubHeadline}" />
+
+                <Label
+                      Text="Para adicionar um novo cliente, use o botão abaixo."
+                      Style="{StaticResource SubHeadline}" />       
+
+                <Button
+                    x:Name="CounterBtn"
+                    Text="Adicionar cliente" 
+                    HorizontalOptions="Center"
+                    BackgroundColor="CadetBlue"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
