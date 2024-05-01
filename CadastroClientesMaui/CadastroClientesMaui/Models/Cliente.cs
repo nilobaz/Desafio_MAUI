@@ -10,6 +10,7 @@ public class Cliente
 
     public string FullName { get; set; }
 
+    [JsonConstructor]
     public Cliente(string name, string lastName, int age, string address)
     {
         Id = Guid.NewGuid();

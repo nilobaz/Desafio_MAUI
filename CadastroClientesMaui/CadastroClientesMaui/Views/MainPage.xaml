@@ -76,12 +76,18 @@
             <VerticalStackLayout 
                    Padding="30,0"
                    Spacing="20">
-                <Image
-                     Source="btg_pactual.png"
-                     BackgroundColor="White"
-                     MaximumWidthRequest="350"
-                     Aspect="AspectFill" />
-
+                <Frame
+                    Padding="0"
+                    CornerRadius="200"
+                    MaximumWidthRequest="410"
+                    BackgroundColor="White">
+                    <Image
+                        Source="btg_pactual.png"
+                        BackgroundColor="White"
+                        MaximumWidthRequest="350"
+                        Aspect="AspectFill" />    
+                </Frame>
+               
                 <Label
                      Text="Cadastro de Clientes"
                      Style="{StaticResource Headline}" />
@@ -99,6 +105,7 @@
                     Text="Adicionar cliente" 
                     Command="{Binding AddClientCommand}"
                     HorizontalOptions="Center"
+                    FontSize="20"
                     BackgroundColor="CadetBlue"/>
             </VerticalStackLayout>
         </ScrollView>

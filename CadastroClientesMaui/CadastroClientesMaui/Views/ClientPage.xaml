@@ -8,6 +8,15 @@
              x:DataType="vm:ClientViewModel"
              x:Name="ClientePage">
 
+    <ContentPage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="LightSeaGreen" />
+        </Style>
+    </ContentPage.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -21,19 +30,97 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="1" Grid.Row="0" Text="Nome:" />
-        <Entry Grid.Column="1" Grid.Row="0" VerticalOptions="Center" />
+        <VerticalStackLayout
+            Grid.Column="1" 
+            Grid.Row="0">
+            <Label Text="Nome:" 
+                   Style="{StaticResource LabelClientEdit}" />
+            <Entry 
+                x:Name="NomeEntry"
+                VerticalOptions="Center"
+                Text="{Binding ClienteData.Name}">
+                <Entry.Behaviors>
+                    <toolkit:TextValidationBehavior 
+                    InvalidStyle="{StaticResource InvalidEntryStyle}"
+                    ValidStyle="{StaticResource ValidEntryStyle}"
+                    Flags="ValidateOnValueChanged"
+                    RegexPattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ\s]+$" />
+                </Entry.Behaviors>
+            </Entry>
+        </VerticalStackLayout>
 
-        <Label Grid.Column="1" Grid.Row="1" Text="Sobrenome:" />
-        <Entry Grid.Column="1" Grid.Row="1" VerticalOptions="Center"/>
+        <VerticalStackLayout
+            Grid.Column="1" 
+            Grid.Row="1">
+            <Label Text="Sobrenome:"
+                   Style="{StaticResource LabelClientEdit}" />
+            <Entry
+                x:Name="SobrenomeEntry"
+                VerticalOptions="Center"
+                Text="{Binding ClienteData.LastName}">
+                <Entry.Behaviors>
+                    <toolkit:TextValidationBehavior 
+                    InvalidStyle="{StaticResource InvalidEntryStyle}"
+                    ValidStyle="{StaticResource ValidEntryStyle}"
+                    Flags="ValidateOnValueChanged"
+                    RegexPattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ\s]+$" />
+                </Entry.Behaviors>
+            </Entry>
+        </VerticalStackLayout>
 
-        <Label Grid.Column="1" Grid.Row="2" Text="Idade:"/>
-        <Entry Grid.Column="1" Grid.Row="2" VerticalOptions="Center"/>
-   
-        <Label Grid.Column="1" Grid.Row="3" Text="Endereço:"  />
-        <Entry Grid.Column="1" Grid.Row="3" VerticalOptions="Center" />
+        <VerticalStackLayout
+            Grid.Column="1" 
+            Grid.Row="2">
+            <Label Text="Idade:" 
+                   Style="{StaticResource LabelClientEdit}" />
+            <Entry 
+                x:Name="IdadeEntry"
+                VerticalOptions="Center"
+                Keyboard="Numeric"
+                Text="{Binding ClienteData.Age}">
+                <Entry.Behaviors>
+                    <toolkit:NumericValidationBehavior 
+                    InvalidStyle="{StaticResource InvalidEntryStyle}"
+                    ValidStyle="{StaticResource ValidEntryStyle}"
+                    Flags="ValidateOnValueChanged"
+                    MinimumValue="1.0"
+                    MaximumValue="100.0" />
+                </Entry.Behaviors>
+            </Entry>
+        </VerticalStackLayout>
 
+        <!--TODO adicionar pesquisa de endereço por CEP usando API do Correios com Refit e Polly/retry-->
+        <VerticalStackLayout
+            Grid.Column="1" 
+            Grid.Row="3">
+            <Label Text="Endereço:" 
+                   Style="{StaticResource LabelClientEdit}" />
+            <Entry 
+                VerticalOptions="Center"
+                Text="{Binding ClienteData.Address}" />
+        </VerticalStackLayout>
 
+        <Button 
+            Grid.Column="2" 
+            Grid.Row="4"
+            Text="Salvar Cliente"
+            FontSize="20"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            BackgroundColor="CadetBlue"
+            Command="{Binding SaveClientCommand}"
+            CommandParameter="{Binding ClienteData}">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference NomeEntry}, Path=Behaviors[0].IsValid}" Value="False">
+                    <Setter Property="IsEnabled" Value="False" />
+                </DataTrigger>
+                <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference SobrenomeEntry}, Path=Behaviors[0].IsValid}" Value="False">
+                    <Setter Property="IsEnabled" Value="False" />
+                </DataTrigger>
+                <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference IdadeEntry}, Path=Behaviors[0].IsValid}" Value="False">
+                    <Setter Property="IsEnabled" Value="False" />
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
     </Grid>
-
 </ContentPage>

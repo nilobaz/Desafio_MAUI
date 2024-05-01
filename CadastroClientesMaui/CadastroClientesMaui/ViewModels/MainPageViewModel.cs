@@ -7,11 +7,9 @@ public partial class MainPageViewModel : ObservableObject
     public MainPageViewModel(IClientService clientService)
     {
         Clientes = new ObservableCollection<Cliente>();
-
-        Clientes.Add(new Cliente("John", "Doe", 30, "123 Main St, jardim jorge atalla, 17211290, jau SP"));
-        Clientes.Add(new Cliente("Jane", "Doe", 25, "456 Elm St"));
-        Clientes.Add(new Cliente("Sam", "Smith", 40, "789 Oak St"));
         _clientService = clientService;
+
+        LoadClients();
     }
 
     [ObservableProperty]
@@ -22,25 +20,26 @@ public partial class MainPageViewModel : ObservableObject
     {
         var newWindow = new Window
         {
-            Page = new ClientPage(new ClientViewModel())
+            Page = new ClientPage(new ClientViewModel(_clientService))
         };
 
-        CenterWindow(newWindow);
+        newWindow.Destroying += NewWindowClosing;
 
+        CenterWindow(newWindow);
         Application.Current.OpenWindow(newWindow);
     }
 
     [RelayCommand]
     private void EditClient(Cliente Client)
     {
-        // enviar o cliente para a pagina de edição
         var newWindow = new Window
         {
-            Page = new ClientPage(new ClientViewModel())
+            Page = new ClientPage(new ClientViewModel(_clientService, Client))
         };
 
-        CenterWindow(newWindow);
+        newWindow.Destroying += NewWindowClosing;
 
+        CenterWindow(newWindow);
         Application.Current.OpenWindow(newWindow);
     }
 
@@ -56,16 +55,7 @@ public partial class MainPageViewModel : ObservableObject
         if (result)
         {
             await _clientService.DeleteClientAsync(Client.Id);
-        }
-    }
-    
-    private async void LoadClients()
-    {
-        var clients = await _clientService.GetClientsAsync();
-        Clientes.Clear();
-        foreach (var client in clients)
-        {
-            Clientes.Add(client);
+            await LoadClients();
         }
     }
 
@@ -75,4 +65,17 @@ public partial class MainPageViewModel : ObservableObject
         window.X = (displayInfo.Width / displayInfo.Density - window.Width) / 2;
         window.Y = (displayInfo.Height / displayInfo.Density - window.Height) / 2;
     }
+
+    private async Task LoadClients()
+    {
+        var clients = await _clientService.GetClientsAsync();
+        Clientes.Clear();
+
+        foreach (var client in clients)
+        {
+            Clientes.Add(client);
+        }
+    }
+
+    private async void NewWindowClosing(object? sender, EventArgs e) => await LoadClients();
 }
