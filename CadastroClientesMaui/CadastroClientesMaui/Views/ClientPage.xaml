@@ -6,12 +6,34 @@
              xmlns:vm="clr-namespace:CadastroClientesMaui.ViewModels"
              xmlns:models="clr-namespace:CadastroClientesMaui.Models"
              x:DataType="vm:ClientViewModel"
-             x:Name="ClientePage"
-             Title="Cliente Page">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             x:Name="ClientePage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="1" Grid.Row="0" Text="Nome:" />
+        <Entry Grid.Column="1" Grid.Row="0" VerticalOptions="Center" />
+
+        <Label Grid.Column="1" Grid.Row="1" Text="Sobrenome:" />
+        <Entry Grid.Column="1" Grid.Row="1" VerticalOptions="Center"/>
+
+        <Label Grid.Column="1" Grid.Row="2" Text="Idade:"/>
+        <Entry Grid.Column="1" Grid.Row="2" VerticalOptions="Center"/>
+   
+        <Label Grid.Column="1" Grid.Row="3" Text="Endereço:"  />
+        <Entry Grid.Column="1" Grid.Row="3" VerticalOptions="Center" />
+
+
+    </Grid>
+
 </ContentPage>

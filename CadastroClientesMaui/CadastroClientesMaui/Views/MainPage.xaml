@@ -24,9 +24,18 @@
                 <DataTemplate x:DataType="{x:Type models:Cliente}">
                     <VerticalStackLayout Spacing="15">
                         <Border 
-                            StrokeShape="RoundRectangle 20"
+                            StrokeThickness="4"
+                            StrokeShape="RoundRectangle 0,30,30,0"
                             BackgroundColor="CadetBlue" 
                             Margin="10">
+                            <Border.Stroke>
+                                <LinearGradientBrush EndPoint="0,1">
+                                    <GradientStop Color="Orange"
+                                             Offset="0.1" />
+                                    <GradientStop Color="Brown"
+                                             Offset="1.0" />
+                                </LinearGradientBrush>
+                            </Border.Stroke>
                             <Grid Padding="15">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />

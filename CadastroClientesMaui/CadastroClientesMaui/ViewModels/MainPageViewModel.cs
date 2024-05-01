@@ -20,19 +20,28 @@ public partial class MainPageViewModel : ObservableObject
     [RelayCommand]
     private void AddClient()
     {
-        //ir para pagina de adição de cliente
-        var secondWindow = new Window
+        var newWindow = new Window
         {
-            Page = new ClientPage(new ClientViewModel()),
+            Page = new ClientPage(new ClientViewModel())
         };
 
-        Application.Current.OpenWindow(secondWindow);
+        CenterWindow(newWindow);
+
+        Application.Current.OpenWindow(newWindow);
     }
 
     [RelayCommand]
     private void EditClient(Cliente Client)
     {
-        //abrir pagina de edição de cliente
+        // enviar o cliente para a pagina de edição
+        var newWindow = new Window
+        {
+            Page = new ClientPage(new ClientViewModel())
+        };
+
+        CenterWindow(newWindow);
+
+        Application.Current.OpenWindow(newWindow);
     }
 
     [RelayCommand]
@@ -47,7 +56,23 @@ public partial class MainPageViewModel : ObservableObject
         if (result)
         {
             await _clientService.DeleteClientAsync(Client.Id);
-            //Clientes.Remove(Client);
         }
+    }
+    
+    private async void LoadClients()
+    {
+        var clients = await _clientService.GetClientsAsync();
+        Clientes.Clear();
+        foreach (var client in clients)
+        {
+            Clientes.Add(client);
+        }
+    }
+
+    private void CenterWindow(Window window)
+    {
+        var displayInfo = DeviceDisplay.Current.MainDisplayInfo;
+        window.X = (displayInfo.Width / displayInfo.Density - window.Width) / 2;
+        window.Y = (displayInfo.Height / displayInfo.Density - window.Height) / 2;
     }
 }

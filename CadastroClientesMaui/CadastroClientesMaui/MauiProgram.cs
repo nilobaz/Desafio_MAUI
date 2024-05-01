@@ -21,17 +21,22 @@ public static class MauiProgram
 #endif
 
 #if WINDOWS
+        bool isFirstWindow = true;
+
         builder.ConfigureLifecycleEvents(events =>
         {
             events.AddWindows(wndLifeCycleBuilder =>
             {
                 wndLifeCycleBuilder.OnWindowCreated(window =>
                 {
-                    //window.ExtendsContentIntoTitleBar = false;  
-                    IntPtr hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
-                    WindowId myWndId = Win32Interop.GetWindowIdFromWindow(hWnd);
-                    var _appWindow =AppWindow.GetFromWindowId(myWndId);
-                    (_appWindow.Presenter as OverlappedPresenter).Maximize();                     
+                    if (isFirstWindow)
+                    {
+                        IntPtr hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
+                        WindowId myWndId = Win32Interop.GetWindowIdFromWindow(hWnd);
+                        var _appWindow = AppWindow.GetFromWindowId(myWndId);
+                        (_appWindow.Presenter as OverlappedPresenter).Maximize();
+                        isFirstWindow = false;
+                    }
                 });
             });
         });
