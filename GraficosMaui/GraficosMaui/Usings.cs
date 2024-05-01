@@ -1,0 +1,13 @@
+﻿global using System;
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.Threading.Tasks;
+global using Microsoft.Extensions.Logging;
+global using System.Collections.ObjectModel;
+global using GraficosMaui.Models;
+global using GraficosMaui.ViewModels;
+global using GraficosMaui.Views;
+global using CommunityToolkit.Mvvm.ComponentModel;
+global using CommunityToolkit.Mvvm.Input;
+global using SkiaSharp;
+global using SkiaSharp.Views.Maui;
