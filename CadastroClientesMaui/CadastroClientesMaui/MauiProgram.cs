@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.LifecycleEvents;
-
-namespace CadastroClientesMaui;
+﻿namespace CadastroClientesMaui;
 
 public static class MauiProgram
 {

@@ -1,5 +1,3 @@
-using CadastroClientesMaui.ViewModels;
-
 namespace CadastroClientesMaui.Views;
 
 public partial class ClientPage : ContentPage
