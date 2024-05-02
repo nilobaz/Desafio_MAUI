@@ -40,9 +40,9 @@ public static class MauiProgram
         });
 #endif
 
+        builder.Services.AddSingleton<IClientService, ClientService>();
         builder.Services.AddTransient<MainPage, MainPageViewModel>();
         builder.Services.AddTransient<ClientPage, ClientViewModel>();
-        builder.Services.AddSingleton<IClientService, ClientService>();
 
         return builder.Build();
     }

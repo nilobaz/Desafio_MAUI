@@ -2,7 +2,7 @@
 
 public partial class ClientViewModel : ObservableObject
 {
-    private IClientService _clientService;
+    private readonly IClientService _clientService;
 
     public ClientViewModel(IClientService clientService, Cliente cliente = null)
     {

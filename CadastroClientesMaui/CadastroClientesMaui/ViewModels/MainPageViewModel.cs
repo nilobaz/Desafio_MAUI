@@ -2,7 +2,7 @@
 
 public partial class MainPageViewModel : ObservableObject
 {
-    private IClientService _clientService;
+    private readonly IClientService _clientService;
 
     public MainPageViewModel(IClientService clientService)
     {
