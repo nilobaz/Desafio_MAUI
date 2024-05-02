@@ -7,5 +7,4 @@ public interface IClientService
     Task AddClientAsync(Cliente client);
     Task UpdateClientAsync(Cliente client);
     Task DeleteClientAsync(Guid id);
-
 }
