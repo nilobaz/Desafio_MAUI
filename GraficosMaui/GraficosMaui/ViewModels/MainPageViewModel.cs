@@ -30,14 +30,15 @@ public partial class MainPageViewModel : ObservableObject
     [RelayCommand]
     private async Task GenerateData()
     {
-        var convertedSigma = Sigma * 0.01;
-        var convertedMean = Mean * 0.01;
+        var brownianMotionsParams = new BrownianMotionsParams
+        {
+            Sigma = Sigma * 0.01,
+            Mean = Mean * 0.01,
+            InitialPrice = InitialPrice,
+            NumDays = NumDays,
+            NumLines = NumberLines
+        };
 
-        BrownianMotionData = await _brownianMotionsService.GenerateMultipleBrownianMotionsAsync(
-            convertedSigma, 
-            convertedMean, 
-            InitialPrice, 
-            NumDays, 
-            NumberLines);
+        BrownianMotionData = await _brownianMotionsService.GenerateMultipleBrownianMotionsAsync(brownianMotionsParams);
     }
 }

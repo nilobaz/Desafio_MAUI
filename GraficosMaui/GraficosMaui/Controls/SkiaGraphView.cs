@@ -45,11 +45,12 @@ public class SkiaGraphView : SKCanvasView
                 int numberOfGraphs = SkiaGraphData.Length;
                 var dataLength = SkiaGraphData[0].Length;
 
-                // Calculate the scale factors for x and y axes
+                // Calcular os fatores de escala para os eixos x e y
+
                 var scaleX = args.Info.Width / (dataLength - 1);
                 var scaleY = args.Info.Height / (SkiaGraphData.SelectMany(data => data).Max());
 
-                // Draw x-axis
+                // Plotar x-axis
                 using (var xPaint = new SKPaint
                 {
                     Style = SKPaintStyle.Stroke,
@@ -60,7 +61,7 @@ public class SkiaGraphView : SKCanvasView
                     canvas.DrawLine(0, args.Info.Height, args.Info.Width, args.Info.Height, xPaint);
                 }
 
-                // Draw y-axis
+                // Plotar y-axis
                 using (var yPaint = new SKPaint
                 {
                     Style = SKPaintStyle.Stroke,
@@ -75,7 +76,7 @@ public class SkiaGraphView : SKCanvasView
                 {
                     double[] data = SkiaGraphData[s];
 
-                    // Draw the graph
+                    // Plotar gráfico
                     using (var paint = new SKPaint
                     {
                         Style = SKPaintStyle.Stroke,
