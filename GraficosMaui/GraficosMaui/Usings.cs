@@ -7,6 +7,7 @@ global using System.Collections.ObjectModel;
 global using GraficosMaui.ViewModels;
 global using GraficosMaui.Views;
 global using GraficosMaui.Controls;
+global using GraficosMaui.Services;
 global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.Input;
 global using CommunityToolkit.Maui;

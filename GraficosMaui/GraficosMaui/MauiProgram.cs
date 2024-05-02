@@ -19,6 +19,7 @@ public static class MauiProgram
         builder.Logging.AddDebug();
 #endif
 
+        builder.Services.AddTransient<IBrownianMotionsService, BrownianMotionsService>();
         builder.Services.AddTransient<MainPage, MainPageViewModel>();
 
         return builder.Build();
