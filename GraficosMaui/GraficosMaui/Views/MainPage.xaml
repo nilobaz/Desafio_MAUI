@@ -2,11 +2,136 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:GraficosMaui.ViewModels"
+             xmlns:controls="clr-namespace:GraficosMaui.Controls;assembly=GraficosMaui"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls"
              x:Class="GraficosMaui.Views.MainPage"
              x:DataType="vm:MainPageViewModel"
              x:Name="GraficoMainPage">
 
-    <skia:SKCanvasView PaintSurface="OnPaintSurface"/>
+    <ContentPage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+    </ContentPage.Resources>
 
+    <Grid ColumnDefinitions="7*, 3*"
+        ColumnSpacing="10"
+        Margin="10">
+
+        <Border Grid.Column="0"  
+                BackgroundColor="#33000000">
+            <controls:SkiaGraphView  
+                   SkiaGraphData="{Binding BrownianMotionData}" 
+                   NumberLines="{Binding NumberLines}" />
+        </Border>
+
+        <Grid Grid.Column="1" 
+              RowDefinitions="*,*,*,*,*,*">
+            <VerticalStackLayout Grid.Row="0">
+                <Label Text="Preço Inicial" 
+                   Style="{StaticResource SubHeadline}" />
+                <Entry 
+                    x:Name="PrecoEntry"
+                    VerticalOptions="Center"
+                    Keyboard="Numeric"
+                    Text="{Binding InitialPrice}">
+                    <Entry.Behaviors>
+                        <toolkit:NumericValidationBehavior 
+                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                        Flags="ValidateOnValueChanged" />
+                    </Entry.Behaviors>
+                </Entry>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="1">
+                <Label Text="Volatilidade Média (%)" 
+                   Style="{StaticResource SubHeadline}" />
+                <Entry 
+                    x:Name="VolatilidadeEntry"
+                    VerticalOptions="Center"
+                    Keyboard="Numeric"
+                    Text="{Binding Sigma}">
+                    <Entry.Behaviors>
+                        <toolkit:NumericValidationBehavior 
+                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                        Flags="ValidateOnValueChanged" />
+                    </Entry.Behaviors>
+                </Entry>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="2">
+                <Label Text="Retorno Médio (%)" 
+                   Style="{StaticResource SubHeadline}" />
+                <Entry 
+                    x:Name="RetornoEntry"
+                    VerticalOptions="Center"
+                    Keyboard="Numeric"
+                    Text="{Binding Mean}">
+                    <Entry.Behaviors>
+                        <toolkit:NumericValidationBehavior 
+                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                        Flags="ValidateOnValueChanged" />
+                    </Entry.Behaviors>
+                </Entry>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="3">
+                <Label Text="Tempo (dias)" 
+                   Style="{StaticResource SubHeadline}" />
+                <Entry 
+                    x:Name="TempoEntry"
+                    VerticalOptions="Center"
+                    Keyboard="Numeric"
+                    Text="{Binding NumDays}">
+                    <Entry.Behaviors>
+                        <toolkit:NumericValidationBehavior 
+                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                        Flags="ValidateOnValueChanged"
+                        MinimumValue="1" />
+                    </Entry.Behaviors>
+                </Entry>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="4">
+                <Label Text="Número de Linhas" 
+                   Style="{StaticResource SubHeadline}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Número de Linhas " />
+                            <Span Text="{Binding NumberLines, StringFormat='({0})'}" FontAttributes="Bold" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Slider x:Name="NumLinesSlider"
+                     VerticalOptions="Center"
+                     Minimum="1"
+                     Maximum="100"
+                     Value="{Binding NumberLines}" />   
+            </VerticalStackLayout>
+
+            <Button 
+                Grid.Row="5"
+                Text="Gerar Simulação"
+                FontSize="20"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Command="{Binding GenerateDataCommand}">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference PrecoEntry}, Path=Behaviors[0].IsValid}" Value="False">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference VolatilidadeEntry}, Path=Behaviors[0].IsValid}" Value="False">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference RetornoEntry}, Path=Behaviors[0].IsValid}" Value="False">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference TempoEntry}, Path=Behaviors[0].IsValid}" Value="False">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+        </Grid>
+    </Grid>
 </ContentPage>

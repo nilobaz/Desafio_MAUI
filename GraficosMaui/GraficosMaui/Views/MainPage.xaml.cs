@@ -7,9 +7,4 @@ public partial class MainPage : ContentPage
         InitializeComponent();
         BindingContext = viewModel;
     }
-
-    private void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
-    {
-       
-    }
 }

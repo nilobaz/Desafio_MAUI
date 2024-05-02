@@ -1,6 +1,4 @@
-﻿using SkiaSharp.Views.Maui.Controls.Hosting;
-
-namespace GraficosMaui;
+﻿namespace GraficosMaui;
 
 public static class MauiProgram
 {
@@ -9,6 +7,7 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .UseMauiCommunityToolkit()
             .UseSkiaSharp()
             .ConfigureFonts(fonts =>
             {
@@ -20,8 +19,7 @@ public static class MauiProgram
         builder.Logging.AddDebug();
 #endif
 
-        builder.Services.AddTransient<MainPage>();
-        builder.Services.AddTransient<MainPageViewModel>();
+        builder.Services.AddTransient<MainPage, MainPageViewModel>();
 
         return builder.Build();
     }
