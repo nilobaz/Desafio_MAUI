@@ -44,7 +44,7 @@ public partial class MainPageViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async void RemoveClient(Cliente Client)
+    private async Task RemoveClient(Cliente Client)
     {
         bool result = await Shell.Current.DisplayAlert(
             "Remover", 
