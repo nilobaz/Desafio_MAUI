@@ -1,17 +1,17 @@
-# Gráficos MAUI
-### Teste técnico para GFT - BTG Pactual
+# Brownian Graph Generator
+#### Video Demo: <URL HERE>
+#### Description:
 
-A aplicação feita em .NET MAUI utiliza .NET 8 e a biblioteca SkiaSharp para criar gráficos gerados a partir de movimentos brownianos. O projeto utiliza MVVM e injeção de dependência.
+The application, built using .NET MAUI, leverages .NET 8 and the SkiaSharp library to generate graphs based on [Brownian motion](https://en.wikipedia.org/wiki/Brownian_motion). The project follows the MVVM architecture and uses dependency injection.
 
-O arquivo `MainPage.xaml` é o arquivo XAML que define a estrutura da página principal da aplicação. Ele contém um layout de grade com duas colunas. A primeira coluna contém um controle personalizado `SkiaGraphView` que exibe o gráfico. A segunda coluna contém uma série de controles de entrada para configurar os parâmetros do gráfico, como preço inicial, volatilidade média, retorno médio, tempo em dias e número de linhas. Também possui um botão para gerar a simulação do gráfico.
+The `MainPage.xaml` file defines the structure of the application's main page. It contains a grid layout with two columns. The first column houses a custom control, `SkiaGraphView`, which displays the graph. The second column includes several input controls for configuring the graph parameters, such as initial price, average volatility, average return, time in days, and the number of lines. There is also a button to generate the graph simulation.
 
-A classe `MainPageViewModel` é responsável por gerenciar os dados e a lógica da página principal da aplicação. Ela possui propriedades para armazenar os valores de `sigma` (volatilidade média), `mean` (retorno médio), `initialPrice` (preço inicial), `numDays` (tempo em dias) e `numberLines` (número de linhas para exibir no gráfico). Além disso, possui um método assíncrono `GenerateData` que gera os dados para o gráfico de movimentos brownianos.
+The `MainPageViewModel` class is responsible for managing the data and logic of the main page. It includes properties for storing values such as `sigma` (average volatility), `mean` (average return), `initialPrice` (initial price), `numDays` (time in days), and `numberLines` (number of lines to display on the graph). Additionally, it features an asynchronous method, `GenerateData`, which generates the data for the Brownian motion graph.
 
-A classe `SkiaGraphView` é uma classe personalizada que herda da classe `SKCanvasView` da biblioteca SkiaSharp. Ela é responsável por desenhar o gráfico na tela. Possui propriedades para armazenar os dados do gráfico (`SkiaGraphData`) e o número de linhas (`NumberLines`). O método `OnPaintSurface` é sobrescrito para desenhar o gráfico utilizando os dados fornecidos.
+The `SkiaGraphView` class is a custom control that extends the `SKCanvasView` class from the SkiaSharp library. It is responsible for rendering the graph on the screen. It has properties to store the graph data (`SkiaGraphData`) and the number of lines (`NumberLines`). The OnPaintSurface method is overridden to draw the graph using the provided data.
 
-O arquivo `Usings.cs` contém os namespaces utilizados na aplicação, incluindo os namespaces das classes mencionadas acima, além de outros namespaces relacionados ao SkiaSharp, ao toolkit `CommunityToolkit.Mvvm`.
+The `Usings.cs` file consolidates the namespaces used in the application, including those for the classes mentioned above, as well as other namespaces related to SkiaSharp and the `CommunityToolkit.Mvvm` toolkit.
 
-O código `GenerateBrownianMotion` fornecido foi levemente alterado visando sua extensão e melhoria de performance, sendo utilizado como o serviço `IBrownianMotionsService`.
+The `GenerateBrownianMotion` code has been designed to enhance its extensibility and performance and is used as the `IBrownianMotionsService`.
 
-<img src="/GraficosMaui/img/tela1.png">
-
+![Application Screenshot](/GraficosMaui/img/tela1.png)

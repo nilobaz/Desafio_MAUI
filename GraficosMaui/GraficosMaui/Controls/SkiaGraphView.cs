@@ -2,13 +2,14 @@
 
 public class SkiaGraphView : SKCanvasView
 {
-    private Random random;
+    private readonly Random random;
 
     public SkiaGraphView()
     {
         random = new Random();
     }
 
+    // Bindable property for the number of lines to be drawn
     public static readonly BindableProperty NumberLinesProperty =
         BindableProperty.Create(nameof(NumberLines), typeof(int), typeof(SkiaGraphView), 1);
 
@@ -18,10 +19,12 @@ public class SkiaGraphView : SKCanvasView
         set => SetValue(NumberLinesProperty, value);
     }
 
+    // Bindable property for the graph data
     public static readonly BindableProperty SkiaGraphDataProperty =
         BindableProperty.Create(nameof(SkiaGraphData), typeof(double[][]), typeof(SkiaGraphView), null,
             propertyChanged: (bindable, oldValue, newValue) =>
             {
+                // Invalidate the surface to trigger a redraw when the data changes
                 (bindable as SkiaGraphView)?.InvalidateSurface();
             });
 
@@ -31,6 +34,7 @@ public class SkiaGraphView : SKCanvasView
         set => SetValue(SkiaGraphDataProperty, value);
     }
 
+    // Override the OnPaintSurface method to draw the graph
     protected override void OnPaintSurface(SKPaintSurfaceEventArgs args)
     {
         base.OnPaintSurface(args);
@@ -45,12 +49,11 @@ public class SkiaGraphView : SKCanvasView
                 int numberOfGraphs = SkiaGraphData.Length;
                 var dataLength = SkiaGraphData[0].Length;
 
-                // Calcular os fatores de escala para os eixos x e y
-
+                // Calculate scaling factors for the x and y axes
                 var scaleX = args.Info.Width / (dataLength - 1);
                 var scaleY = args.Info.Height / (SkiaGraphData.SelectMany(data => data).Max());
 
-                // Plotar x-axis
+                // Draw x-axis
                 using (var xPaint = new SKPaint
                 {
                     Style = SKPaintStyle.Stroke,
@@ -61,7 +64,7 @@ public class SkiaGraphView : SKCanvasView
                     canvas.DrawLine(0, args.Info.Height, args.Info.Width, args.Info.Height, xPaint);
                 }
 
-                // Plotar y-axis
+                // Draw y-axis
                 using (var yPaint = new SKPaint
                 {
                     Style = SKPaintStyle.Stroke,
@@ -72,11 +75,11 @@ public class SkiaGraphView : SKCanvasView
                     canvas.DrawLine(0, 0, 0, args.Info.Height, yPaint);
                 }
 
+                // Draw each graph
                 for (int s = 0; s < numberOfGraphs; s++)
                 {
                     double[] data = SkiaGraphData[s];
 
-                    // Plotar gráfico
                     using (var paint = new SKPaint
                     {
                         Style = SKPaintStyle.Stroke,
@@ -107,6 +110,7 @@ public class SkiaGraphView : SKCanvasView
         }
     }
 
+    // Generate a random color
     private SKColor GetRandomColor()
     {
         return new SKColor((byte)random.Next(256), (byte)random.Next(256), (byte)random.Next(256));
