@@ -14,4 +14,4 @@ The `Usings.cs` file consolidates the namespaces used in the application, includ
 
 The `GenerateBrownianMotion` code has been designed to enhance its extensibility and performance and is used as the `IBrownianMotionsService`.
 
-[Application Screenshot](/BrownianGraph/img/screen.png)
+[Application Screenshot](/project/screen.png)
