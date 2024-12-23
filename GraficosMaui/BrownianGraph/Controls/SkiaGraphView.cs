@@ -1,4 +1,4 @@
-﻿namespace GraficosMaui.Controls;
+﻿namespace BrownianGraph.Controls;
 
 public class SkiaGraphView : SKCanvasView
 {

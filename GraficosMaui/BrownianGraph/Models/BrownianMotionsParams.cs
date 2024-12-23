@@ -1,4 +1,4 @@
-﻿namespace GraficosMaui.Models;
+﻿namespace BrownianGraph.Models;
 
 public class BrownianMotionsParams
 {

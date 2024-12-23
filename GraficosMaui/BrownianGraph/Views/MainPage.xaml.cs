@@ -1,4 +1,4 @@
-﻿namespace GraficosMaui.Views;
+﻿namespace BrownianGraph.Views;
 
 public partial class MainPage : ContentPage
 {

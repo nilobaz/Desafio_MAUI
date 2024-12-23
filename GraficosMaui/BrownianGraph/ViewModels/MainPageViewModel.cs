@@ -1,4 +1,4 @@
-﻿namespace GraficosMaui.ViewModels;
+﻿namespace BrownianGraph.ViewModels;
 
 public partial class MainPageViewModel : ObservableObject
 {

@@ -1,4 +1,4 @@
-﻿namespace GraficosMaui.Services;
+﻿namespace BrownianGraph.Services;
 
 public interface IBrownianMotionsService
 {

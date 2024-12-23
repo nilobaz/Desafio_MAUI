@@ -1,4 +1,4 @@
-﻿namespace GraficosMaui;
+﻿namespace BrownianGraph;
 
 public partial class App : Application
 {

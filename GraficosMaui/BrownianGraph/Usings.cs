@@ -1,10 +1,10 @@
 ﻿global using CommunityToolkit.Maui;
 global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.Input;
-global using GraficosMaui.Models;
-global using GraficosMaui.Services;
-global using GraficosMaui.ViewModels;
-global using GraficosMaui.Views;
+global using BrownianGraph.Models;
+global using BrownianGraph.Services;
+global using BrownianGraph.ViewModels;
+global using BrownianGraph.Views;
 global using Microsoft.Extensions.Logging;
 global using SkiaSharp;
 global using SkiaSharp.Views.Maui;
